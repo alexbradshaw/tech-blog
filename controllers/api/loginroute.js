@@ -34,12 +34,14 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
+    console.log(req.body);
     try {
-        console.log(req);
-        console.log(`\n ------------------------------- \n`);
-        console.log(res);
-        // const userData = await User.findOne({ where: { email: req.body.email } });
+       const newUser = await User.create({
+            email: req.body.email,
+            password: req.body.password
+        })
 
+        res.json(newUser)
 
     } catch (err) {
         res.status(400).json(err);
