@@ -36,12 +36,13 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
     console.log(req.body);
     try {
-       const newUser = await User.create({
-            email: req.body.email,
-            password: req.body.password
-        })
-
-        res.json(newUser)
+        User.create(
+            {
+                email: req.body.email,
+                password: req.body.password
+            })
+            .then(newUser => res.status(200).json(newUser))
+            .catch(err => res.status(400).json(err))
 
     } catch (err) {
         res.status(400).json(err);
@@ -60,14 +61,14 @@ router.post('/logout', (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-      const postsData = await Posts.findAll();
-  
-      const posts = postsData.map((Posts) => Posts.get({ plain: true }));
-  
-      res.render('homepage', { posts });
+        const postsData = await Posts.findAll();
+
+        const posts = postsData.map((Posts) => Posts.get({ plain: true }));
+
+        res.render('homepage', { posts });
     } catch (err) {
-      res.status(500).json(err);
+        res.status(500).json(err);
     }
-  });
+});
 
 module.exports = router;
