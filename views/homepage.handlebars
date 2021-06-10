@@ -7,6 +7,9 @@
   <p>{{post.content}}</p>
   <div class="col-md-6">
     <small>Created by {{post.user.email}}</small>
+    <br>
+      <button style="font-size: 10px;">Add Comment</button>
+      <textarea name="comment_text" id="comment_box" cols="25" rows="1"></textarea>
   </div>
 </div>
 {{/each}}
